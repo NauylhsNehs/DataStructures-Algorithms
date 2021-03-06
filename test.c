@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define BOOL int
 #define TRUE 1
 #define FALSE 0
 #define ElemType int
 
-void main(){
+void main()
+{
     // int a=1000;
     // int *aa=&a;
     // printf("%d\n",a);
@@ -12,5 +14,14 @@ void main(){
     // printf("%d\n",aa);
     // printf("%d\n",&(*aa));
     // printf("%d",&aa);
-    printf("%d",sizeof(ElemType));
+    // printf("%d",sizeof(ElemType));
+    // for (int i = 0; i < 100; i++)
+    // {
+    //     for (int j = 0; j < 10; j++)
+    //     {
+    //         printf("%d", i);
+    //     }
+
+    //     system("cls");
+    // }
 }
