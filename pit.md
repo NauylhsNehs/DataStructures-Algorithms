@@ -24,3 +24,9 @@ Option 4
     typedef int bool;
     #define true 1
     #define false 0
+
+malloc realloc calloc free
+
+结构体变量.成员名
+(*指针变量).成员名
+指针变量->成员名
