@@ -6,7 +6,7 @@
 #define IncreseSize 10
 #define OVERFLOW 1
 
-typedef struct
+typedef struct LNode
 {
     ElemType data;
     struct LNode *next;
@@ -116,14 +116,14 @@ void ShowMean()
     printf("9.DestoryList\t0.quit\n");
 }
 
-bool InitList(LinkList *L)
+bool InitList(LinkList &L)
 {
     LNode *s;
     int x;
     L = (LinkList)malloc(sizeof(LNode)); //头结点
     if (!L)
         exit(OVERFLOW);
-    (*L)->next = NULL;
+    L->next = NULL;
     printf("please input the elems : \n\(99 for default, 999 for exit\)\n");
     scanf("%d", &x);
     if (x == 99)
@@ -136,8 +136,8 @@ bool InitList(LinkList *L)
         if (!s)
             exit(OVERFLOW);
         s->data = x;
-        s->next = (*L)->next;
-        (*L)->next = s;
+        s->next = L->next;
+        L->next = s;
         scanf("%d", &x);
     }
     return true;
