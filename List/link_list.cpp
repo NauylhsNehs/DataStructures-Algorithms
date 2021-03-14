@@ -17,7 +17,7 @@ void ShowMean();
 LinkList InitList_Head(LinkList &L);
 LinkList InitList_Tail(LinkList &L);
 int Length(LinkList L);
-int LocateElem(LinkList L, ElemType e);
+LNode *LocateElem(LinkList L, ElemType e, int &pst);
 LNode *GetElem(LinkList L, int i);
 bool ListInsert(LinkList &L, int i, ElemType e);
 bool ListDelete(LinkList &L, int i, ElemType &e);
@@ -58,7 +58,9 @@ int main()
         case 3:
             printf("input the elem : ");
             scanf("%d", &e);
-            printf("the elem %d is in position %d\n", e, LocateElem(L, e));
+            int position = 0;
+            LocateElem(L, e, position);
+            printf("the elem %d is in position %d\n", e, position);
             break;
         case 4:
             printf("input the position(from1) : ");
@@ -208,18 +210,20 @@ int Length(LinkList L)
     }
     return len;
 }
-int LocateElem(LinkList L, ElemType e)
+LNode *LocateElem(LinkList L, ElemType e, int &pst)
 {
-    L = L->next;
+    LNode *p = L->next;
     int len = Length(L);
     for (int i = 0; i < len; i++)
     {
         if (L->data == e)
-            return i + 1;
-        else
-            L = L->next;
+        {
+            pst = i + 1;
+            return p;
+        }
+        p = p->next;
     }
-    return 999;
+    return NULL;
 }
 LNode *GetElem(LinkList L, int i)
 {
