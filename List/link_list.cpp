@@ -18,12 +18,12 @@ LinkList InitList_Head(LinkList &L);
 LinkList InitList_Tail(LinkList &L);
 int Length(LinkList L);
 int LocateElem(LinkList L, ElemType e);
-bool GetElem(LinkList L, int i);
-// bool ListInsert(LinkList &L, int i, ElemType e);
-// bool ListDelete(LinkList &L, int i, ElemType &e);
+LNode *GetElem(LinkList L, int i);
+bool ListInsert(LinkList &L, int i, ElemType e);
+bool ListDelete(LinkList &L, int i, ElemType &e);
 bool PrintList(LinkList L);
-// bool Empty(LinkList L);
-// bool DestoryList(LinkList &L);
+bool Empty(LinkList L);
+bool DestoryList(LinkList &L);
 
 int main()
 {
@@ -63,51 +63,48 @@ int main()
         case 4:
             printf("input the position(from1) : ");
             scanf("%d", &p);
-            if (!GetElem(L, p))
+            printf("the elem in position %d is %d", p, GetElem(L, p)->data);
+            break;
+        case 5:
+            printf("input the position(from1) : ");
+            scanf("%d", &p);
+            printf("input the elem you wanna to insert : ");
+            scanf("%d", &e);
+            if (ListInsert(L, p - 1, e))
             {
-                printf("we can't find the elem!\n");
+                printf("success\n");
+            }
+            else
+            {
+                printf("fail to insert!");
             }
             break;
-        // case 5:
-        //     printf("input the position(from1) : ");
-        //     scanf("%d", &p);
-        //     printf("input the elem you wanna to insert : ");
-        //     scanf("%d", &e);
-        //     if (ListInsert(L, p - 1, e))
-        //     {
-        //         printf("success\n");
-        //     }
-        //     else
-        //     {
-        //         printf("fail to insert!");
-        //     }
-        //     break;
-        // case 6:
-        //     printf("input the position(from1) : ");
-        //     scanf("%d", &p);
-        //     if (ListDelete(L, p - 1, e))
-        //     {
-        //         printf("the elem you had deleted is %d\n", e);
-        //     }
-        //     else
-        //     {
-        //         printf("fail to delete!\n");
-        //     }
-        //     break;
+        case 6:
+            printf("input the position(from1) : ");
+            scanf("%d", &p);
+            if (ListDelete(L, p - 1, e))
+            {
+                printf("the elem you had deleted is %d\n", e);
+            }
+            else
+            {
+                printf("fail to delete!\n");
+            }
+            break;
         case 7:
             PrintList(L);
             printf("success\n");
             break;
-        // case 8:
-        //     if (Empty(L))
-        //         printf("L list is empty\n");
-        //     else
-        //         printf("L list is not empty\n");
-        //     break;
-        // case 9:
-        //     DestoryList(L);
-        //     printf("success\n");
-        //     break;
+        case 8:
+            if (Empty(L))
+                printf("L list is empty\n");
+            else
+                printf("L list is not empty\n");
+            break;
+        case 9:
+            DestoryList(L);
+            printf("success\n");
+            break;
         default:
             printf("please input the right nunber!\n");
             break;
@@ -132,6 +129,7 @@ LinkList InitList_Head(LinkList &L)
     L = (LinkList)malloc(sizeof(LNode)); //头结点
     if (!L)
         exit(OVERFLOW);
+    L->data = 99;
     L->next = NULL;
     printf("please input the elems : \n\(99 for default, 999 for exit\)\n");
     scanf("%d", &x);
@@ -223,22 +221,87 @@ int LocateElem(LinkList L, ElemType e)
     }
     return 999;
 }
-bool GetElem(LinkList L, int i)
+LNode *GetElem(LinkList L, int i)
 {
-    L = L->next;
-    int len = Length(L);
-    if (i <= 0 || i > len)
-        return false;
-    for (int j = 0; j < len; j++)
+    LNode *p = L->next;
+    int j = 1;
+    if (i < 0 || i > Length(L))
+        return NULL;
+    if (i == 0)
+        return L;
+    while (p && (j <= i))
     {
-        if (j == i - 1)
-        {
-            printf("the elem in position %d is %d \n", i, L->data);
-            return true;
-        }
-        L = L->next;
+        p = p->next;
+        j++;
     }
+    return p;
+}
+bool ListInsert(LinkList &L, int i, ElemType e)
+{
+    //后插
+    if (i > Length(L) || i <= 0)
+        return false;
+    LNode *p = GetElem(L, i - 1);
+    LNode *newElem = (LNode *)malloc(sizeof(LNode));
+    newElem->data = e;
+    newElem->next = p->next;
+    p->next = newElem;
+    return true;
+}
+bool ListInsertFront(LinkList &L, int i, ElemType e)
+{
+    //前插
+    if (i > Length(L) || i <= 0)
+        return false;
+    LNode *p = GetElem(L, i);
+    LNode *newElem = (LNode *)malloc(sizeof(LNode));
+    newElem->next = p->next;
+    p->next = newElem;
+    newElem->data = p->data;
+    p->data = e;
+    return true;
+}
+bool ListDelete(LinkList &L, int i, ElemType &e)
+{
+    //后删
+    if (i <= 0 || i > Length(L))
+        return false;
+    LNode *p = GetElem(L, i - 1);
+    LNode *delElem = p->next;
+    e = delElem->data;
+    p->next = p->next->next;
+    free(delElem);
+    return true;
+}
+bool ListDeleteFront(LinkList &L, int i, ElemType &e)
+{
+    //前删
+    if (i <= 0 || i > Length(L))
+        return false;
+    LNode *p = GetElem(L, i);
+    LNode *delElem = p->next;
+    e = p->data;
+    p->data = delElem->data;
+    p->next = p->next->next;
+    free(delElem);
+    return true;
+}
+bool Empty(LinkList L)
+{
+    if (!L->next)
+        return true;
     return false;
+}
+bool DestoryList(LinkList &L)
+{
+    LNode *p = L;
+    while (p)
+    {
+        p = L->next;
+        free(L);
+        L = p;
+    }
+    return true;
 }
 bool PrintList(LinkList L)
 {
