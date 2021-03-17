@@ -243,7 +243,7 @@ LNode *GetElem(LinkList L, int i)
 bool ListInsert(LinkList &L, int i, ElemType e)
 {
     //后插
-    if (i > Length(L) || i <= 0)
+    if (i > Length(L)+1 || i <= 0)
         return false;
     LNode *p = GetElem(L, i - 1);
     LNode *newElem = (LNode *)malloc(sizeof(LNode));
