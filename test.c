@@ -24,4 +24,8 @@ void main()
 
     //     system("cls");
     // }
+    char a='9';
+    char b='0';
+    printf("%d\n",a-b);
+    printf("%c",a);
 }
