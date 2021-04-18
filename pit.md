@@ -30,3 +30,7 @@ malloc realloc calloc free
 结构体变量.成员名
 (*指针变量).成员名
 指针变量->成员名
+
+快速排序
+qsort(首地址, 数量, 每一个元素占的空间大小, 排序顺序函数);
+qsort(*s,n,sizeof(s[0]),cmp);
