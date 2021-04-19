@@ -2,7 +2,7 @@
 int main()
 {
     char a[60], b[60], c[60], d[60];
-    scanf("%s %s %s %s", &a, &b, &c, &d);
+    scanf("%s %s %s %s", a, b, c, d);
     char *day[] = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
     int i, j, count = 0;
     // char result[]={"day","hour","minute"};

@@ -4,7 +4,7 @@ int main()
     char a[10],b[10];
     int da,db;
     int i,s,pa=0,pb=0;
-    scanf("%s %d %s %d",&a,&da,&b,&db);
+    scanf("%s %d %s %d",a,&da,b,&db);
     // printf("%s %d %s %d\n",a,da,b,db);
     for (i = 0,s=1; a[i]; i++)
     {
