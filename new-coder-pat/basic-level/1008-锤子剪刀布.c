@@ -11,7 +11,6 @@ int main()
     for (i = 0; i < n; i++)
     {
         scanf("%c %c", &jia, &yi);
-        printf("!%d!\n",jia-yi);
         switch (jia - yi)
         {
         case 0:
@@ -36,17 +35,17 @@ int main()
         case -8:
             j[2]++;
             y[0]++;
-            yw[0]++;
+            yw[2]++;
             break;
         case 1:
             j[2]++;
             y[0]++;
-            yw[1]++;
+            yw[0]++;
             break;
         case 7:
             j[2]++;
             y[0]++;
-            yw[2]++;
+            yw[1]++;
             break;
         default:
             break;
@@ -56,19 +55,36 @@ int main()
     printf("%d %d %d\n", j[0], j[1], j[2]);
     printf("%d %d %d\n", y[0], y[1], y[2]);
     int jf = 0, yf = 0;
-    for (i = 1; i < 3; i++)
+
+    char bcj[3] = {'B', 'C', 'J'};
+    if (jw[0] < jw[1])
     {
-        if (jw[i-1] < jw[i])
-        {
-            jf = i;
-        }
-        if (yw[i-1] < yw[i])
-        {
-            yf = i;
-        }
+        jf = jw[1];
+        i = 1;
     }
-    char bcj[3]={'B','C','J'};
-    printf("%d %d",bcj[jf],yf);
+    else
+    {
+        jf = jw[0];
+        i = 0;
+    }
+    if (jf < jw[2])
+        printf("J");
+    else
+        printf("%c ", bcj[i]);
+    if (yw[0] < yw[1])
+    {
+        yf = yw[1];
+        i = 1;
+    }
+    else
+    {
+        yf = yw[0];
+        i = 0;
+    }
+    if (yf < yw[2])
+        printf("J");
+    else
+        printf("%c", bcj[i]);
 
     return 0;
 }
