@@ -24,8 +24,13 @@ void main()
 
     //     system("cls");
     // }
-    char a='9';
-    char b='0';
-    printf("%d\n",a-b);
-    printf("%c",a);
+    // char a='9';
+    // char b='0';
+    // printf("%d\n",a-b);
+    // printf("%c",a);
+    int a=2;
+    float b=7;
+    float c;
+    c=b/a;
+    printf("%lf",c);
 }
